@@ -69,6 +69,7 @@ export class HomeComponent implements OnInit {
     const new_food = Object.assign({},food);
     // console.log(new_food);
     this._service.updateData(new_food);
+    food.quantity = null;
     
   }
 

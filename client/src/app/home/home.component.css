@@ -162,3 +162,8 @@ agm-map {
 .icon {
     margin-right: 4px;
   }
+
+  .font {
+      color: white;
+      font-size: 20px;
+  }

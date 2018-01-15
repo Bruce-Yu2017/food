@@ -1,0 +1,33 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" [routerLink]="['/']">Order Website</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <button *ngIf="user !== undefined" class="btn btn-danger" (click)="logout()">
+      <i class="fa fa-sign-out" aria-hidden="true"></i> Log out</button>
+  </div>
+</nav>
+
+<div class="jumbotron">
+  <div class="container">
+    <h4 class="display-3">Hello, {{user.first_name}} {{user.last_name}},
+      <span *ngIf='orders.length === 0'>your order history is empty.</span>
+      <span *ngIf="orders.length !== 0">here is your order history.</span>
+    </h4>
+    <div class="list-group lis" *ngFor="let o of orders">
+      <p class="list-group-item list-group-item-action active">
+        Order Created At:
+        <strong>{{o.createdAt | date: "medium"}}</strong>
+      </p>
+      <p class="list-group-item list-group-item-action">Order Details: {{o.quantity}}
+      </p>
+      <p class="list-group-item list-group-item-action">Unit Price: <span *ngFor = "let p of o.foods">{{p.food_name}}: {{p.price}} dollars; </span>
+      </p>
+      <p class="list-group-item list-group-item-action">Total Price: {{o.total_price}} dollars
+      </p>
+      <hr>
+    </div>
+  </div>
+</div>

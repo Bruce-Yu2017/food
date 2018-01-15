@@ -130,6 +130,12 @@ export class MainService {
     })
   }
 
+  retrieveOrder(callback) {
+    this._http.get("/orders/" + this.user._id).subscribe((res) => {
+      callback(res.json());
+    })
+  }
+
   logout() {
     localStorage.removeItem("user");
     

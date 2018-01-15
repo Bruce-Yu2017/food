@@ -9,6 +9,7 @@ import { CheckoutComponent } from './home/checkout/checkout.component';
 import { NewMenuComponent } from './new-menu/new-menu.component';
 import { NewUserComponent } from './new-user/new-user.component';
 import { UpdateUserComponent } from './update-user/update-user.component';
+import { OrderHistoryComponent } from './order-history/order-history.component';
 
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
   {path: "new_menu", pathMatch: "full", component: NewMenuComponent},
   {path: "new_user", pathMatch: "full", component: NewUserComponent},
   {path: "update", pathMatch: "full", component: UpdateUserComponent},
+  {path: "orderhistory/:id", pathMatch: "full", component: OrderHistoryComponent},
   
  
 

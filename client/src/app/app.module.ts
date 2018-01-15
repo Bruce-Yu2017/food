@@ -15,6 +15,7 @@ import { NewUserComponent } from './new-user/new-user.component';
 import { SocialLoginModule, AuthServiceConfig } from "angular4-social-login";
 import { GoogleLoginProvider, FacebookLoginProvider } from "angular4-social-login";
 import { UpdateUserComponent } from './update-user/update-user.component';
+import { OrderHistoryComponent } from './order-history/order-history.component';
 
 let config = new AuthServiceConfig([
   {
@@ -35,7 +36,8 @@ let config = new AuthServiceConfig([
     CheckoutComponent,
     NewMenuComponent,
     NewUserComponent,
-    UpdateUserComponent
+    UpdateUserComponent,
+    OrderHistoryComponent
   ],
   imports: [
     BrowserModule,

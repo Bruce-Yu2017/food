@@ -47,7 +47,7 @@ module.exports = {
                 for(var i = 0; i < food.length; i++) {
                     order.foods.push(food[i]);
                     order.total_price += (food[i].price * food[i].quantity);
-                    order.quantity += (food[i].food_name + ": " + food[i].quantity + ";")
+                    order.quantity += (food[i].food_name + ": " + food[i].quantity + "; ")
                 }
 
                 order.save(function(err) {
@@ -61,6 +61,19 @@ module.exports = {
             }
         })
 
+    },
+
+    retrieveOrder: function(req, res) {
+        var user_id = req.params.id;
+        Order.find({order_user: user_id}).sort({createdAt: "desc"}).populate("foods").exec(function(err, order) {
+            if(err) {
+                console.log("err from retrieve order: ", err);
+            }
+            else {
+                res.json(order);
+                console.log("retrieve all orders: ", order);
+            }
+        })
     }
 
 }

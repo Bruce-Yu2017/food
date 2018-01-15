@@ -34,6 +34,10 @@ module.exports = function(app){
     foods.place_order(req, res);
   })
 
+  app.get("/orders/:id", function(req,res) {
+    foods.retrieveOrder(req, res);
+  })
+
   app.all("*",function(req,res){
     res.sendFile('index.html', { root: './client/dist' });
   })
