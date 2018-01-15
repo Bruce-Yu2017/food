@@ -106,7 +106,7 @@ module.exports = {
             res.json("update require");
           }
           else {
-            res.json("exist");
+            res.json({user:user});
           }
         }
       })

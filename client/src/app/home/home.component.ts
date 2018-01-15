@@ -11,29 +11,30 @@ import { SocialUser } from "angular4-social-login";
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  current_user = "";
+  current_user = null;
   all_foods;
   item = null;
   user: SocialUser;
   loggedIn: boolean;
 
+
   constructor(private _service: MainService, private _router: Router, private authService: AuthService) { }
 
   ngOnInit() {
+    if (this._service.user) {
+      this.current_user = this._service.user;
+      console.log(this.current_user);
+    }
 
-    this.current_user = this._service.user;
     this.authService.authState.subscribe((user) => {
-      // console.log(user);
-      this.user = user;
       this._service.social_user = user;
-
-      // console.log(this.user);
       localStorage.social_user = JSON.stringify(user)
       this.loggedIn = (user != null);
       if(this.user !== null) {
         this._service.check_user(this.user, (res) => {
-          if(res == "exist") {
+          if(res) {
             console.log("success social login");
+            this.current_user = res.user;
           }
           else {
             console.log(res);
@@ -62,7 +63,14 @@ export class HomeComponent implements OnInit {
   }
 
   signOut(): void {
-    this.authService.signOut();
+    if (this.loggedIn === true ) {
+      this.authService.signOut();
+      this.current_user = null;
+    }
+    else {
+      this._service.logout();
+      this.current_user = null;
+    }
   }
 
   create_order(food) {
@@ -73,11 +81,5 @@ export class HomeComponent implements OnInit {
     
   }
 
-  logout() {
-    this._service.logout();
-    this.current_user = null;
-    // this._router.navigate(['/login']);
-    
-  }
 
 }
