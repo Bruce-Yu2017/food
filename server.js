@@ -1,6 +1,7 @@
 var express = require('express');
 var scrypt = require("scrypt");
-
+var nodemailer = require("nodemailer");
+var exphbs = require("express-handlebars");
 var bodyParser = require('body-parser');
 
 var path = require('path')
