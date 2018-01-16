@@ -3,7 +3,7 @@ var path = require("path");
 var User = mongoose.model("User");
 var Food = mongoose.model("Food");
 var Order = mongoose.model("Order");
-
+const nodemailer = require('nodemailer');
 module.exports = { 
     create:function(req, res){
         var new_food = new Food({
@@ -55,7 +55,39 @@ module.exports = {
                         console.log("err from save order: ", err);
                     }
                     else {
-                        res.json("success submit order")
+                        res.json("success submit order");
+                        var transporter = nodemailer.createTransport({
+                            service: 'gmail',
+                            auth: {
+                                user: 'foodreadyoh@gmail.com',
+                                pass: 'codingdojo2018'
+                            }
+                        });
+
+                        var content = `
+                            <h2>Here is your order summary: </h2>
+                            <p>Total Price: ${order.total_price}</p>
+                            <p>Quantity: ${order.quantity}</p>
+                            <p>Order date: ${order.createdAt}</p>
+
+                        `
+
+                        var mailOptions = {
+                            from: 'foodreadyoh@gmail.com',
+                            to: user.email,
+                            subject: 'Order Summary from FoodWeb Service',
+                            html: content
+                        };
+
+                       
+
+                        transporter.sendMail(mailOptions, function (error, info) {
+                            if (error) {
+                                console.log(error);
+                            } else {
+                                console.log('Email sent: ' + info.response);
+                            }
+                        });
                     }
                 })
             }
