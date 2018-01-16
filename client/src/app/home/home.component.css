@@ -21,6 +21,19 @@
 }
 
 
+agm-map {
+    height: 200px;
+}
+
+h1 {
+    font-weight: bold;
+    /* font-style: palatino; */
+    margin-top: 30px;
+    font-family: 'Lobster', cursive;
+    color: bisque;
+    text-shadow:0 -1px 0 rgba(0,0,0,.3),0 0px 30px rgba(0,255,255,.7);
+    font-size: 80px;
+}
 /* Food menu display background color */
 .card {
     background-color: #555;
