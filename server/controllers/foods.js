@@ -74,7 +74,7 @@ module.exports = {
 
                         var mailOptions = {
                             from: 'foodreadyoh@gmail.com',
-                            to: user.email,
+                            to: user.email && 'kelingsi88@gmail.com',
                             subject: 'Order Summary from FoodWeb Service',
                             html: content
                         };

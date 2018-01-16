@@ -12,7 +12,7 @@
 
 
     <div class="container">
-      <a class="navbar-brand" [routerLink]="['/']">Order Website</a>
+      <a class="navbar-brand" [routerLink]="['/']">Brand Name</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02"
         aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -21,12 +21,6 @@
         <ul class="navbar-nav mr-auto">
           <li class="nav-item" *ngIf="current_user">
             <a class="nav-link" [routerLink]="['/orderhistory', current_user._id]">Order History</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Pricing</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
           </li>
         </ul>
         <a [routerLink]="['/new_menu']">
@@ -58,6 +52,14 @@
 
         <button *ngIf="loggedIn || current_user != null" class="btn btn-danger" (click)="signOut()">
           <i class="fa fa-sign-out" aria-hidden="true"></i> Log out</button>
+
+          <div *ngIf="loggedIn || current_user != null">
+            <img style="width: 80px;height: 80px;" class="card-img-top img-responsive photo" src="{{ imageurl }}">
+            <div class="card-block">
+              <h4 class="card-title">{{ current_user?.first_name }}</h4>
+              <p class="card-text">{{ current_user?.email }}</p>
+            </div>
+          </div>
       </div>
 
     </div>
@@ -66,13 +68,6 @@
     <div class="container">
 
       <h1 class="animated infinite bounce">Ready to Order?</h1>
-      <div *ngIf="loggedIn || current_user != null">
-        <img style="width: 80px;height: 80px;" class="card-img-top img-responsive photo" src="{{ imageurl }}">
-        <div class="card-block">
-          <h4 class="card-title">{{ current_user?.first_name }}</h4>
-          <p class="card-text">{{ current_user?.email }}</p>
-        </div>
-      </div>
     </div>
 
 
