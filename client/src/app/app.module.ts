@@ -17,6 +17,8 @@ import { GoogleLoginProvider, FacebookLoginProvider } from "angular4-social-logi
 import { UpdateUserComponent } from './update-user/update-user.component';
 import { OrderHistoryComponent } from './order-history/order-history.component';
 
+import { AgmCoreModule } from '@agm/core';
+
 let config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
@@ -44,7 +46,10 @@ let config = new AuthServiceConfig([
     AppRoutingModule,
     FormsModule,
     HttpModule,
-    SocialLoginModule.initialize(config)
+    SocialLoginModule.initialize(config),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyCtp-QzkIR4QSrXNJMEHRX9Wn_d0vBSmjQ'
+    })
   ],
   providers: [MainService],
   bootstrap: [AppComponent]

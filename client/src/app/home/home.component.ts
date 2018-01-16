@@ -17,6 +17,8 @@ export class HomeComponent implements OnInit {
   user: SocialUser;
   loggedIn: boolean;
 
+  lat: number = 37.335480;
+  lng: number = -121.893028; 
 
   constructor(private _service: MainService, private _router: Router, private authService: AuthService) { }
 
@@ -30,8 +32,9 @@ export class HomeComponent implements OnInit {
       this._service.social_user = user;
       localStorage.social_user = JSON.stringify(user)
       this.loggedIn = (user != null);
-      if(this.user !== null) {
-        this._service.check_user(this.user, (res) => {
+       console.log(user);
+      if(user !== null) {
+        this._service.check_user(user, (res) => {
           if(res) {
             console.log("success social login");
             this.current_user = res.user;
