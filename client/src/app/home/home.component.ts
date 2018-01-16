@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
   item = null;
   user: SocialUser;
   loggedIn: boolean;
-
+  zoom: number = 12;
   lat: number = 37.335480;
   lng: number = -121.893028; 
 
