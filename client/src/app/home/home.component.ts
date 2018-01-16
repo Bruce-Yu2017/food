@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
   item = null;
   user: SocialUser;
   loggedIn: boolean;
-  imageurl = "https://botw-pd.s3.amazonaws.com/styles/logo-original-577x577/s3/0010/8217/brand.gif"0
+  imageurl = "https://botw-pd.s3.amazonaws.com/styles/logo-original-577x577/s3/0010/8217/brand.gif";
 
   lat: number = 37.335480;
   lng: number = -121.893028;
