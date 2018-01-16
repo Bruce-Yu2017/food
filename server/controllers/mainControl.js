@@ -103,10 +103,10 @@ module.exports = {
         else {
           console.log("from check user: ", user);
           if(user == null) {
-            res.json("update require");
+            res.json({message:"none", user:user});
           }
           else {
-            res.json({user:user});
+            res.json({message:"yes", user:user});
           }
         }
       })
@@ -117,11 +117,12 @@ module.exports = {
   social_update: function(req, res) {
     console.log(req.body);
     var unhash_pass = scrypt.kdfSync(req.body.reg.password, scryptParameters).toString('Base64');
-    if(req.body.user.email == null) {
+    if(req.body.user.email == "") {
+      var name = req.body.user.name.split(" ");
       var user = new User({
         email: req.body.reg.email,
-        first_name: req.body.user.firstName,
-        last_name: req.body.user.lastName,
+        first_name: name[0],
+        last_name: name[1],
         password: unhash_pass,
         user_level: 0
         })
@@ -135,10 +136,11 @@ module.exports = {
       })
     }
     else {
+      var name = req.body.user.name.split(" ");
       var user = new User({
         email: req.body.user.email,
-        first_name: req.body.user.firstName,
-        last_name: req.body.user.lastName,
+        first_name: name[0],
+        last_name: name[1],
         password: unhash_pass,
         user_level: 0
         })

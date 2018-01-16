@@ -16,36 +16,36 @@ export class HomeComponent implements OnInit {
   item = null;
   user: SocialUser;
   loggedIn: boolean;
-  zoom: number = 12;
-  lat: number = 37.335480;
-  lng: number = -121.893028; 
+  imageurl = "https://botw-pd.s3.amazonaws.com/styles/logo-original-577x577/s3/0010/8217/brand.gif"
+
 
   constructor(private _service: MainService, private _router: Router, private authService: AuthService) { }
 
-  ngOnInit() {
-    if (this._service.user) {
-      this.current_user = this._service.user;
-      console.log(this.current_user);
-    }
-
+  ngOnInit() {    
     this.authService.authState.subscribe((user) => {
       this._service.social_user = user;
       localStorage.social_user = JSON.stringify(user)
       this.loggedIn = (user != null);
-       console.log(user);
-      if(user !== null) {
+      if(user != null) {
+        console.log(user)
+         this.imageurl = user.photoUrl
+         this._service.social_user = user;        
         this._service.check_user(user, (res) => {
-          if(res) {
+          if(res.message == "yes") {
             console.log("success social login");
             this.current_user = res.user;
           }
-          else {
+          else if (res.message == "none") {
             console.log(res);
             this._router.navigate(["/update"]);
           }
         })
       }
     });
+    if (this._service.user) {
+      this.current_user = this._service.user;
+      this.loggedIn = false
+    }
 
     this._service.retrieveAllFood((res) => {
       res.map((ele)=>{
