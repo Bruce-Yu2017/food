@@ -67,10 +67,8 @@ export class MainService {
     this._http.post("/login", userdata).subscribe(
       (res) => {
         callback(res.json());
-        this.user = res.json();
         if (res.json().error == undefined) {
           this.user = res.json();
-          // console.log("from service login: ", this.user);
           localStorage.user = JSON.stringify(res.json());
         }
       },
@@ -137,6 +135,7 @@ export class MainService {
   }
 
   logout() {
+    this.user = null;
     localStorage.removeItem("user");
     
   }
