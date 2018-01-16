@@ -16,8 +16,11 @@ export class HomeComponent implements OnInit {
   item = null;
   user: SocialUser;
   loggedIn: boolean;
-  imageurl = "https://botw-pd.s3.amazonaws.com/styles/logo-original-577x577/s3/0010/8217/brand.gif"
+  imageurl = "https://botw-pd.s3.amazonaws.com/styles/logo-original-577x577/s3/0010/8217/brand.gif"0
 
+  lat: number = 37.335480;
+  lng: number = -121.893028;
+  zoom: number = 12;
 
   constructor(private _service: MainService, private _router: Router, private authService: AuthService) { }
 

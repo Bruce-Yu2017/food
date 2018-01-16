@@ -37,13 +37,13 @@
           <button class="btn btn-secondary my-2 my-sm-0" type="submit" *ngIf="current_user != undefined && current_user.user_level == 9">
             <i class="fa fa-user-o fa-lg icon" aria-hidden="true"></i>Add New User </button>
         </a>
-        
+
         <div *ngIf="!(loggedIn || current_user != null)">
-        <a [routerLink]="['/login']">
-          <button class="btn btn-secondary my-2 my-sm-0" type="submit" *ngIf="current_user == null">
-            <i class="fa fa-sign-in" aria-hidden="true"></i> Log in </button>
-        </a>
-        
+          <a [routerLink]="['/login']">
+            <button class="btn btn-secondary my-2 my-sm-0" type="submit" *ngIf="current_user == null">
+              <i class="fa fa-sign-in" aria-hidden="true"></i> Log in </button>
+          </a>
+
           <a>
             <button class="btn btn-social-icon btn-google" (click)="signInWithGoogle()">
               <span class="fa fa-google"></span>
@@ -53,7 +53,7 @@
             <button class="btn btn-social-icon btn-facebook" (click)="signInWithFB()">
               <span class="fa fa-facebook"></span>
             </button>
-          </a>        
+          </a>
         </div>
 
         <button *ngIf="loggedIn || current_user != null" class="btn btn-danger" (click)="signOut()">
@@ -121,6 +121,11 @@
 
 
   <footer id="myFooter">
+    <div class="container">
+      <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+        <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+      </agm-map>
+    </div>
     <div class="social-networks">
       <a href="#" class="twitter">
         <i class="fa fa-twitter"></i>
