@@ -65,19 +65,25 @@ module.exports = {
                         });
 
                         var content = `
-                            <h2>Here is your order summary: </h2>
+                            <h2>Here is the order summary: </h2>
+                            <p>Ordered by: ${user.first_name} ${user.last_name}</p>
                             <p>Total Price: ${order.total_price}</p>
                             <p>Quantity: ${order.quantity}</p>
                             <p>Order date: ${order.createdAt}</p>
 
                         `
+                        var mailList = [
+                            user.email,
+                            "foodreadyoh@gmail.com"
+                        ]
 
                         var mailOptions = {
                             from: 'foodreadyoh@gmail.com',
-                            to: user.email,
+                            to: mailList,
                             subject: 'Order Summary from FoodWeb Service',
                             html: content
                         };
+
 
                        
 
