@@ -59,7 +59,7 @@
 
       </div>
       <button *ngIf="loggedIn || current_user != null" class="btn btn-danger" (click)="signOut()">
-          <i class="fa fa-sign-out" aria-hidden="true"></i> Log out</button>
+        <i class="fa fa-sign-out" aria-hidden="true"></i> Log out</button>
     </div>
   </nav>
   <div class="jumbotron">
@@ -102,6 +102,21 @@
           <h3>Browe food from this food truck</h3>
           <ul class="list-group list-group-flush">
             <li *ngFor="let a of all_foods" class="list-group-item font">
+
+              <img id="foodImg" src="{{a.image}}">
+              <div id="foodInfo">
+                <p>Food Name: {{a.food_name}}</p>
+                <p>Description: {{a.description}}</p>
+                <p>Price: {{a.price}}</p>
+                <form (submit)="create_order(a)" #addfood="ngForm">
+                  <label>Quantity:</label>
+                  <input type="number" [(ngModel)]="a.quantity" required min="1" name="quantity" #quantity="ngModel">
+                  <button class="btn btn-default" style="background-color: black; border:#fff; color:#fff;" [disabled]="!addfood.valid">Add</button>
+
+                </form>
+              <p>Total price: {{a.quantity * a.price}}</p>
+            </div>
+
               <img style="width: 100px;height: 100px;" src="{{a.image}}">
               <p>Food Name: {{a.food_name}}</p>
               <p>Description: {{a.description}}</p>
@@ -116,6 +131,7 @@
               </form>
               <p>Total price: {{a.quantity * a.price}}</p>
               
+
             </li>
 
           </ul>
