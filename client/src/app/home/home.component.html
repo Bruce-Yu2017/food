@@ -102,6 +102,7 @@
           <h3>Browe food from this food truck</h3>
           <ul class="list-group list-group-flush">
             <li *ngFor="let a of all_foods" class="list-group-item font">
+
               <img id="foodImg" src="{{a.image}}">
               <div id="foodInfo">
                 <p>Food Name: {{a.food_name}}</p>
@@ -115,6 +116,22 @@
                 </form>
               <p>Total price: {{a.quantity * a.price}}</p>
             </div>
+
+              <img style="width: 100px;height: 100px;" src="{{a.image}}">
+              <p>Food Name: {{a.food_name}}</p>
+              <p>Description: {{a.description}}</p>
+              <p>Price: {{a.price}}</p>
+              <form (submit)="create_order(a)" #addfood="ngForm" *ngIf = "current_user !== null">
+                <label>Quantity:</label>
+                <input type="number" [(ngModel)]="a.quantity" required min="1" name="quantity" #quantity="ngModel">
+
+
+                <button class="btn btn-success" [disabled]="!addfood.valid">Add</button>
+                <button class="btn btn-danger btn-sm" *ngIf="current_user.user_level == 9" (click)="delete_food(a._id)">Delete this food</button>
+              </form>
+              <p>Total price: {{a.quantity * a.price}}</p>
+              
+
             </li>
 
           </ul>

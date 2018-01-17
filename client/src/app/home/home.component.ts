@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit {
     this.authService.authState.subscribe((user) => {
       this.loggedIn = (user != null);
       if (user != null) {
-        console.log(user)
+
         this.imageurl = user.photoUrl
         this._service.social_user = user;
         this._service.check_user(user, (res) => {
@@ -72,6 +72,7 @@ export class HomeComponent implements OnInit {
   signOut(): void {
     if (this.loggedIn === true) {
       this.authService.signOut();
+      localStorage.removeItem("social_user");
       this.current_user = null;
       this._service.logout();
       // console.log(this.current_user);
@@ -87,6 +88,19 @@ export class HomeComponent implements OnInit {
     // console.log(new_food);
     this._service.updateData(new_food);
     food.quantity = null;
+
+  }
+
+  delete_food(id) {
+    this._service.delete_food(id, (res) => {
+      console.log(res);
+      this._service.retrieveAllFood((res) => {
+        res.map((ele) => {
+          return ele.quantity = null;
+        })
+        this.all_foods = res;
+      })
+    })
 
   }
 

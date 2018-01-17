@@ -79,14 +79,10 @@ module.exports = {
 
                         var mailOptions = {
                             from: 'foodreadyoh@gmail.com',
-                            to: user.email && 'kelingsi88@gmail.com',
+                            to: mailList,
                             subject: 'Order Summary from FoodWeb Service',
                             html: content
                         };
-
-
-
-
                         transporter.sendMail(mailOptions, function (error, info) {
                             if (error) {
                                 console.log(error);
@@ -112,7 +108,18 @@ module.exports = {
                 console.log("err from retrieve order: ", err);
             } else {
                 res.json(order);
-                console.log("retrieve all orders: ", order);
+                // console.log("retrieve all orders: ", order);
+            }
+        })
+    },
+
+    delete_food: function(req, res) {
+        Food.remove({_id: req.params.id}, function(err) {
+            if(err) {
+                console.log("err from delete food: ", err);
+            }
+            else {
+                res.json("delete food success")
             }
         })
     }
