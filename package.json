@@ -22,6 +22,7 @@
     "mongoose": "^4.13.2",
     "ngx-bootstrap": "^2.0.0-rc.0",
     "nodemailer": "^4.4.1",
-    "scrypt": "^6.0.3"
+    "scrypt": "^6.0.3",
+    "socket.io": "^2.0.4"
   }
 }

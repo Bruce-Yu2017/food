@@ -2,19 +2,24 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { error } from 'selenium-webdriver';
 import {BehaviorSubject} from "rxjs";
+import io from "socket.io-client";
+
 @Injectable()
 export class MainService {
   user;
   social_user;
   data: BehaviorSubject<any[]> = new BehaviorSubject([]);
+  socket = null;
+  if_socket_disconnect = false;
+  login_users: BehaviorSubject<any []> = new  BehaviorSubject([])
+
   constructor(private _http: Http) {
     if (localStorage.user != undefined) {
       this.user = JSON.parse(localStorage.user);
     }
     if (localStorage.social_user != undefined) {
       this.social_user = JSON.parse(localStorage.social_user);
-    }
-    
+    }  
   }
 
   updateData(newData: any): void {
@@ -54,6 +59,7 @@ export class MainService {
         if (res.json().success == "success") {
           this.user = res.json().user;
           localStorage.user = JSON.stringify(res.json().user);
+          
         }
       },
       (err) => {
@@ -70,6 +76,7 @@ export class MainService {
         if (res.json().error == undefined) {
           this.user = res.json();
           localStorage.user = JSON.stringify(res.json());
+          
         }
       },
       (err) => {
@@ -137,7 +144,25 @@ export class MainService {
   logout() {
     this.user = null;
     localStorage.removeItem("user");
+    this.socket.disconnect();
+    this.if_socket_disconnect = true;  
     
+  }
+
+  update_loginusers(data){
+    this.login_users.next(data);
+  }
+
+  connect(user){
+    if(this.if_socket_disconnect){
+      this.socket = io();
+      this.if_socket_disconnect = false;
+    }
+    var  new_user = {
+      first_name: user.first_name,
+      last_name: user.last_name,
+    }
+    this.socket.emit('login',{user: new_user});
   }
 
 }

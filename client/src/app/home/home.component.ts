@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AuthService } from "angular4-social-login";
 import { FacebookLoginProvider, GoogleLoginProvider } from "angular4-social-login";
 import { SocialUser } from "angular4-social-login";
+import io from "socket.io-client";
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -17,14 +18,16 @@ export class HomeComponent implements OnInit {
   user: SocialUser;
   loggedIn: boolean;
   imageurl = "https://botw-pd.s3.amazonaws.com/styles/logo-original-577x577/s3/0010/8217/brand.gif";
-
+  socket;
+  total_login_user = [];
   lat: number = 37.335480;
   lng: number = -121.893028;
   zoom: number = 12;
 
   constructor(private _service: MainService, private _router: Router, private authService: AuthService) { }
 
-  ngOnInit() {    
+  ngOnInit() {
+    this.socket = this._service.socket;    
     this.authService.authState.subscribe((user) => {
       this._service.social_user = user;
       localStorage.social_user = JSON.stringify(user)
@@ -37,6 +40,7 @@ export class HomeComponent implements OnInit {
           if(res.message == "yes") {
             console.log("success social login");
             this.current_user = res.user;
+            this._service.connect(res.user);
           }
           else if (res.message == "none") {
             console.log(res);
@@ -47,6 +51,7 @@ export class HomeComponent implements OnInit {
     });
     if (this._service.user) {
       this.current_user = this._service.user;
+      this._service.connect(this.current_user);
       this.loggedIn = false
     }
 
@@ -56,6 +61,11 @@ export class HomeComponent implements OnInit {
       })
       this.all_foods = res;
     })
+
+    this._service.login_users.subscribe(
+      (data) => {
+        this.total_login_user = data;
+      });
 
     
   }
@@ -72,6 +82,7 @@ export class HomeComponent implements OnInit {
     if (this.loggedIn === true ) {
       this.authService.signOut();
       this.current_user = null;
+      this._service.logout();
     }
     else {
       this._service.logout();

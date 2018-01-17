@@ -5,6 +5,7 @@ var scrypt = require("scrypt");
 var scryptParameters = scrypt.paramsSync(0.1);
 
 
+
 module.exports = { 
   register: function (req, res) {
     User.find({}, function (err, users) {
