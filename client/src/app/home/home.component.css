@@ -19,18 +19,21 @@
 #service {
     background-color: #772953;
     color: bisque;
-    
 }
+
+/* #truckImg {
+    width: 100%;
+} */
 
 #foodImg {
     width: 425px;
     display: inline-block;
-    margin-bottom: 115px;
+    margin-bottom: 200px;
 }
 
 #foodInfo{
     display: inline-block;
-    margin: 100px 0px 0px 70px;
+    margin: 1px 0px 0px 70px;
 }
 
 .jumbotron {
@@ -46,7 +49,7 @@
 
 #show {
     padding: 50px;
-    background: url(/assets/images/pexels-photo-237272.jpeg)
+    background: url(/assets/images/pexels-photo-349610.jpeg)
     no-repeat center center;
     -webkit-background-attachment: fixed;
     background-attachment: fixed;
@@ -67,7 +70,9 @@
 .checkout {
     display: inline-block;
 }
-
+.list-group-flush:last-child .list-group-item:last-child{
+    height: 450px;
+}
 
 
 .card-block {
@@ -106,13 +111,6 @@ img {
     border: 1px solid;
     border-radius: 8px;
 }
-
-/* Google Map sytle */
-
-agm-map {
-    height: 200px;
-    
-  }
 
 
 

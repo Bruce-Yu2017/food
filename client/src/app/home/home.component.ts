@@ -56,6 +56,7 @@ export class HomeComponent implements OnInit {
         return ele.quantity = null;
       })
       this.all_foods = res;
+      console.log(res);
     })
 
 
