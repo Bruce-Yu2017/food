@@ -20,6 +20,12 @@
     height: 500px;
 }
 
+.card-block {
+    display: inline-block;
+    color: azure;
+    text-align: center;
+    text-shadow:0 -1px 0 rgba(0,0,0,.3),0 0px 30px rgba(0,255,255,.7);
+}
 
 agm-map {
     height: 200px;
@@ -43,8 +49,9 @@ h1 {
 
 
 img {
-    vertical-align: middle;
-    margin: 10px;
+    width: 50px;
+    display: block;
+    margin-top: 10px;
     border: 1px solid;
     border-radius: 8px;
 }
