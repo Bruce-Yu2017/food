@@ -150,9 +150,22 @@ export class MainService {
     
   }
 
+  delete_food(id, callback) {
+    this._http.delete("/deletefood/" + id, {}).subscribe((res) => {
+      callback(res.json());
+    })
+  }
+
   logout() {
-    this.user = null;
-    localStorage.removeItem("user");
+    if (this.user !== undefined) {
+      this.user = null;
+      localStorage.removeItem("user");
+    }
+    if (this.social_user !== undefined) {
+      this.social_user = null;
+      console.log("hello");
+      localStorage.removeItem("social_user");
+    }
     
   }
 

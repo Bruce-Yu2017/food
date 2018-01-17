@@ -38,6 +38,10 @@ module.exports = function(app){
     foods.retrieveOrder(req, res);
   })
 
+  app.delete("/deletefood/:id", function(req, res) {
+    foods.delete_food(req, res);
+  })
+
   app.all("*",function(req,res){
     res.sendFile('index.html', { root: './client/dist' });
   })

@@ -24,16 +24,15 @@ export class HomeComponent implements OnInit {
 
   constructor(private _service: MainService, private _router: Router, private authService: AuthService) { }
 
-  ngOnInit() {   
+  ngOnInit() {
     console.log(this._service.social_user);
-    this.authService.authState.subscribe((user) => {   
+    this.authService.authState.subscribe((user) => {
       this.loggedIn = (user != null);
-      if(user != null) {
-        console.log(user)
-         this.imageurl = user.photoUrl
-         this._service.social_user = user;        
+      if (user != null) {
+        this.imageurl = user.photoUrl
+        this._service.social_user = user;
         this._service.check_user(user, (res) => {
-          if(res.message == "yes") {
+          if (res.message == "yes") {
             console.log("success social login");
             this._service.social_user = res.user;
             localStorage.social_user = JSON.stringify(res.user);
@@ -52,13 +51,13 @@ export class HomeComponent implements OnInit {
     }
 
     this._service.retrieveAllFood((res) => {
-      res.map((ele)=>{
+      res.map((ele) => {
         return ele.quantity = null;
       })
       this.all_foods = res;
     })
 
-    
+
   }
 
   signInWithGoogle(): void {
@@ -70,8 +69,9 @@ export class HomeComponent implements OnInit {
   }
 
   signOut(): void {
-    if (this.loggedIn === true ) {
+    if (this.loggedIn === true) {
       this.authService.signOut();
+      localStorage.removeItem("social_user");
       this.current_user = null;
     }
     else {
@@ -81,11 +81,22 @@ export class HomeComponent implements OnInit {
   }
 
   create_order(food) {
-    const new_food = Object.assign({},food);
+    const new_food = Object.assign({}, food);
     // console.log(new_food);
     this._service.updateData(new_food);
     food.quantity = null;
-    
+  }
+
+  delete_food(id) {
+    this._service.delete_food(id, (res) => {
+      console.log(res);
+      this._service.retrieveAllFood((res) => {
+        res.map((ele) => {
+          return ele.quantity = null;
+        })
+        this.all_foods = res;
+      })
+    })
   }
 
 

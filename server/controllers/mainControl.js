@@ -102,7 +102,6 @@ module.exports = {
           console.log("err from check user: ", err);
         }
         else {
-          console.log("from check user: ", user);
           if(user == null) {
             res.json({message:"none", user:user});
           }
