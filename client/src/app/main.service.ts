@@ -110,9 +110,17 @@ export class MainService {
   }
 
   place_order(order, callback) {
-    this._http.post("/orders/" + this.user._id, order).subscribe((res) => {
-      callback(res.json())
-    })
+    if(this.user) {
+      this._http.post("/orders/" + this.user._id, order).subscribe((res) => {
+        callback(res.json())
+      })
+    }
+    else if(this.social_user) {
+      this._http.post("/orders/" + this.social_user._id, order).subscribe((res) => {
+        callback(res.json())
+      })
+    }
+    
   }
 
   check_user(social_user, callback) {
@@ -129,9 +137,17 @@ export class MainService {
   }
 
   retrieveOrder(callback) {
-    this._http.get("/orders/" + this.user._id).subscribe((res) => {
-      callback(res.json());
-    })
+    if(this.user) {
+      this._http.get("/orders/" + this.user._id).subscribe((res) => {
+        callback(res.json());
+      })
+    }
+    else if(this.social_user) {
+      this._http.get("/orders/" + this.social_user._id).subscribe((res) => {
+        callback(res.json());
+      })
+    }
+    
   }
 
   logout() {

@@ -5,14 +5,14 @@
       aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <button *ngIf="user !== undefined" class="btn btn-danger" (click)="logout()">
+    <button *ngIf="current_user !== undefined" class="btn btn-danger" (click)="signOut()">
       <i class="fa fa-sign-out" aria-hidden="true"></i> Log out</button>
   </div>
 </nav>
 
 <div class="jumbotron">
   <div class="container">
-    <h4 class="display-3">Hello, {{user.first_name}} {{user.last_name}},
+    <h4 class="display-3">Hello, {{current_user.first_name}} {{current_user.last_name}},
       <span *ngIf='orders.length === 0'>your order history is empty.</span>
       <span *ngIf="orders.length !== 0">here is your order history.</span>
     </h4>
