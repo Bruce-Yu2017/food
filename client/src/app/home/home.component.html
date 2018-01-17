@@ -54,7 +54,9 @@
           <i class="fa fa-sign-out" aria-hidden="true"></i> Log out</button>
 
           <div *ngIf="loggedIn || current_user != null">
-            <img style="width: 80px;height: 80px;" class="card-img-top img-responsive photo" src="{{ imageurl }}">
+            <div class="card-block">
+              <img class="card-img-top img-responsive photo" src="{{ imageurl }}">
+            </div>
             <div class="card-block">
               <h4 class="card-title">{{ current_user?.first_name }}</h4>
               <p class="card-text">{{ current_user?.email }}</p>
