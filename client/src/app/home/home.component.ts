@@ -24,10 +24,9 @@ export class HomeComponent implements OnInit {
 
   constructor(private _service: MainService, private _router: Router, private authService: AuthService) { }
 
-  ngOnInit() {    
-    this.authService.authState.subscribe((user) => {
-      this._service.social_user = user;
-      localStorage.social_user = JSON.stringify(user)
+  ngOnInit() {   
+    console.log(this._service.social_user);
+    this.authService.authState.subscribe((user) => {   
       this.loggedIn = (user != null);
       if(user != null) {
         console.log(user)
@@ -36,6 +35,8 @@ export class HomeComponent implements OnInit {
         this._service.check_user(user, (res) => {
           if(res.message == "yes") {
             console.log("success social login");
+            this._service.social_user = res.user;
+            localStorage.social_user = JSON.stringify(res.user);
             this.current_user = res.user;
           }
           else if (res.message == "none") {
