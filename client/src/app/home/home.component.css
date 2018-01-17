@@ -4,10 +4,20 @@
     opacity: 0.9;
     font-weight: bold;
     color: #000000;
+    font-family: 'Bevan', cursive;
+    background-color:hsla(120,60%,70%,0.3);
+    border: 5px solid black;
+    border-radius: 15px;
 }
 
 .container {
     max-width: 1600px;
+}
+
+
+
+.card-hearder {
+    background-color: hsla(290,60%,70%,0.3);
 }
 
 .jumbotron {
@@ -18,7 +28,34 @@
     padding: 0;
     position: relative;
     height: 500px;
+    margin: 0px;
 }
+
+#show {
+    padding: 50px;
+    background: url(/assets/images/pexels-photo-237272.jpeg)
+    no-repeat center center;
+    -webkit-background-attachment: fixed;
+    background-attachment: fixed;
+    background-size: cover;
+    padding: 0;
+    position: relative;
+}
+
+#show .container {
+    padding: 20px;
+}
+
+.list-group-item.font {
+    color: #222;
+    background-color:hsla(120,60%,70%,0.3);
+}
+
+.checkout {
+    display: inline-block;
+}
+
+
 
 .card-block {
     display: inline-block;
@@ -171,9 +208,6 @@ agm-map {
     }
 }
 
-.checkout {
-    display: inline-block;
-}
 
 .icon {
     margin-right: 4px;
