@@ -151,9 +151,13 @@ export class MainService {
   }
 
   logout() {
-    this.user = null;
-    localStorage.removeItem("user");
-    
+    if (this.user) {
+      this.user = null;
+      localStorage.removeItem("user");
+         
+    }
+ 
+   
   }
 
 }
