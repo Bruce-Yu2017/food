@@ -3,7 +3,12 @@ var path = require('path');
 
 var fs = require('fs');
 
-mongoose.connect('mongodb://localhost/orderWeb');
+// mongoose.connect('mongodb://localhost/orderWeb');
+var uristring =
+	process.env.MONGOLAB_URI ||
+	process.env.MONGOHQ_URL ||
+	'mongodb://bruce:bruce@ds261917.mlab.com:61917/food'
+mongoose.connect(uristring);
 
 var models_path = path.join(__dirname, './../models');
 
