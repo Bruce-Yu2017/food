@@ -29,16 +29,16 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.socket = this._service.socket;    
     this.authService.authState.subscribe((user) => {
-      this._service.social_user = user;
-      localStorage.social_user = JSON.stringify(user)
       this.loggedIn = (user != null);
-      if(user != null) {
-        console.log(user)
-         this.imageurl = user.photoUrl
-         this._service.social_user = user;        
+      if (user != null) {
+
+        this.imageurl = user.photoUrl
+        this._service.social_user = user;
         this._service.check_user(user, (res) => {
-          if(res.message == "yes") {
+          if (res.message == "yes") {
             console.log("success social login");
+            this._service.social_user = res.user;
+            localStorage.social_user = JSON.stringify(res.user);
             this.current_user = res.user;
             this._service.connect(res.user);
           }
@@ -56,10 +56,11 @@ export class HomeComponent implements OnInit {
     }
 
     this._service.retrieveAllFood((res) => {
-      res.map((ele)=>{
+      res.map((ele) => {
         return ele.quantity = null;
       })
       this.all_foods = res;
+      console.log(res);
     })
 
     this._service.login_users.subscribe(
@@ -79,8 +80,10 @@ export class HomeComponent implements OnInit {
   }
 
   signOut(): void {
-    if (this.loggedIn === true ) {
+    this.socket.emit('logout',{user:this.current_user});
+    if (this.loggedIn === true) {
       this.authService.signOut();
+      localStorage.removeItem("social_user");
       this.current_user = null;
       this._service.logout();
     }
@@ -88,14 +91,28 @@ export class HomeComponent implements OnInit {
       this._service.logout();
       this.current_user = null;
     }
+
   }
 
   create_order(food) {
-    const new_food = Object.assign({},food);
+    const new_food = Object.assign({}, food);
     // console.log(new_food);
     this._service.updateData(new_food);
     food.quantity = null;
-    
+
+  }
+
+  delete_food(id) {
+    this._service.delete_food(id, (res) => {
+      console.log(res);
+      this._service.retrieveAllFood((res) => {
+        res.map((ele) => {
+          return ele.quantity = null;
+        })
+        this.all_foods = res;
+      })
+    })
+
   }
 
 

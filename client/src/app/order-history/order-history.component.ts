@@ -11,16 +11,43 @@ import { FacebookLoginProvider, GoogleLoginProvider } from "angular4-social-logi
   styleUrls: ['./order-history.component.css']
 })
 export class OrderHistoryComponent implements OnInit {
-  user;
-  orders;
+  current_user;
+  orders= [];
+  
   constructor(private _service: MainService, private _router: Router, private authService: AuthService) { }
 
   ngOnInit() {
-    this.user = this._service.user;
+    console.log(this._service.social_user);
+    console.log(this._service.user);
+
+    if(this._service.social_user !== undefined) {
+      this.current_user = this._service.social_user;
+    }
+    else {
+      this.current_user = this._service.user;
+    }
+
+    
     this._service.retrieveOrder((res) => {
       this.orders = res;
-      console.log(res);
+      
     })
+  }
+
+  signOut() {
+    if (this._service.social_user !== undefined) {
+      console.log(1);
+      this._service.logout();
+      this.authService.signOut();
+      this._router.navigate(["/login"]);
+    }
+    if (this._service.user !== undefined) {
+      console.log(2);
+      this._service.logout();
+      this._router.navigate(["/login"]);
+    }
+    
+    
   }
 
 }

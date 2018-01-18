@@ -51,6 +51,14 @@ io.sockets.on('connection', function (socket) {
         io.emit('online', {users:users});
     })
 
+    socket.on('logout', function(data){
+        var rest_user = users.filter(function(el){
+            return el.info.id != data.user._id;
+        })
+        users = rest_user;
+        io.emit('online',{users:users});
+    })
+
     socket.on('disconnect', function(){
         console.log("dis id is: ", socket.id);
         var rest_user = users.filter(function(el){

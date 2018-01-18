@@ -1,13 +1,39 @@
 #sideCard {
     width: 1000px;
-    font-size: 25px;
-    opacity: 0.9;
+    font-size: 35px;
     font-weight: bold;
-    color: #000000;
+    color: bisque;
+    background-color:rgba(255,0,0,0.3);
+    border: 5px solid black;
+    border-radius: 15px;
 }
 
 .container {
     max-width: 1600px;
+}
+
+.navbar-expand-lg {
+    height: 80px;
+}
+
+#service {
+    background-color: #772953;
+    color: bisque;
+}
+
+/* #truckImg {
+    width: 100%;
+} */
+
+#foodImg {
+    width: 425px;
+    display: inline-block;
+    margin-bottom: 200px;
+}
+
+#foodInfo{
+    display: inline-block;
+    margin: 1px 0px 0px 70px;
 }
 
 .jumbotron {
@@ -18,8 +44,44 @@
     padding: 0;
     position: relative;
     height: 500px;
+    margin: 0px;
 }
 
+#show {
+    padding: 50px;
+    background: url(/assets/images/pexels-photo-349610.jpeg)
+    no-repeat center center;
+    -webkit-background-attachment: fixed;
+    background-attachment: fixed;
+    background-size: cover;
+    padding: 0;
+    position: relative;
+}
+
+#show .container {
+    padding: 20px;
+}
+
+.list-group-item.font {
+    color: bisque;
+    background-color:rgba(255,0,0,0.3);
+}
+
+.checkout {
+    display: inline-block;
+}
+.list-group-flush:last-child .list-group-item:last-child{
+    height: 450px;
+}
+
+
+.card-block {
+    display: inline-block;
+    color: bisque;
+    text-align: center;
+    text-shadow:0 -1px 0 rgba(0,0,0,.3),0 0px 30px rgba(0,255,255,.7);
+    margin-right: 20px;
+}
 
 agm-map {
     height: 200px;
@@ -28,7 +90,7 @@ agm-map {
 h1 {
     font-weight: bold;
     /* font-style: palatino; */
-    margin-top: 30px;
+    margin: 0px;
     font-family: 'Lobster', cursive;
     color: bisque;
     text-shadow:0 -1px 0 rgba(0,0,0,.3),0 0px 30px rgba(0,255,255,.7);
@@ -43,24 +105,18 @@ h1 {
 
 
 img {
-    vertical-align: middle;
-    margin: 10px;
+    width: 50px;
+    display: block;
+    margin-top: 10px;
     border: 1px solid;
     border-radius: 8px;
 }
-
-/* Google Map sytle */
-
-agm-map {
-    height: 200px;
-    
-  }
 
 
 
 /* Footer section  */
 #myFooter {
-    background-color: #182c39;
+    background-color: #772953;
     color: white;
     padding-top: 20px;
 }
@@ -164,9 +220,6 @@ agm-map {
     }
 }
 
-.checkout {
-    display: inline-block;
-}
 
 .icon {
     margin-right: 4px;

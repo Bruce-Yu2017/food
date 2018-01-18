@@ -117,9 +117,17 @@ export class MainService {
   }
 
   place_order(order, callback) {
-    this._http.post("/orders/" + this.user._id, order).subscribe((res) => {
-      callback(res.json())
-    })
+    if(this.user) {
+      this._http.post("/orders/" + this.user._id, order).subscribe((res) => {
+        callback(res.json())
+      })
+    }
+    else if(this.social_user) {
+      this._http.post("/orders/" + this.social_user._id, order).subscribe((res) => {
+        callback(res.json())
+      })
+    }
+    
   }
 
   check_user(social_user, callback) {
@@ -136,17 +144,39 @@ export class MainService {
   }
 
   retrieveOrder(callback) {
-    this._http.get("/orders/" + this.user._id).subscribe((res) => {
+    if(this.user) {
+      this._http.get("/orders/" + this.user._id).subscribe((res) => {
+        callback(res.json());
+      })
+    }
+    else if(this.social_user) {
+      this._http.get("/orders/" + this.social_user._id).subscribe((res) => {
+        callback(res.json());
+      })
+    }
+    
+  }
+
+  delete_food(id, callback) {
+    this._http.delete("/deletefood/" + id, {}).subscribe((res) => {
       callback(res.json());
     })
   }
 
   logout() {
     this.user = null;
-    localStorage.removeItem("user");
-    this.socket.disconnect();
-    this.if_socket_disconnect = true;  
+    localStorage.removeItem("user"); 
+    if (this.user !== undefined) {
+      this.user = null;
+      localStorage.removeItem("user");
+    }
+    if (this.social_user !== undefined) {
+      this.social_user = null;
+      console.log("hello");
+      localStorage.removeItem("social_user");
+    }
     
+
   }
 
   update_loginusers(data){
@@ -154,11 +184,8 @@ export class MainService {
   }
 
   connect(user){
-    if(this.if_socket_disconnect){
-      this.socket = io();
-      this.if_socket_disconnect = false;
-    }
     var  new_user = {
+      id:user._id,
       first_name: user.first_name,
       last_name: user.last_name,
     }
