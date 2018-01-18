@@ -120,6 +120,13 @@
                   <button class="btn btn-default" style="background-color: black; border:#fff; color:#fff;" [disabled]="!addfood.valid">Add</button>
                   <p>Total price: {{a.quantity * a.price}}</p>
                   <button class="btn btn-danger btn-sm" *ngIf="current_user.user_level == 9" (click)="delete_food(a._id)">Delete this food</button>
+
+                  <button (click)="like(a._id)">
+                    <span>
+                      <i class="fa fa-thumbs-up" aria-hidden="true"></i>                      
+                    </span>
+                  </button>
+                  {{a.likeBy.length}}
                 </form>
               </div>
             </li>

@@ -42,6 +42,10 @@ module.exports = function(app){
     foods.delete_food(req, res);
   })
 
+  app.post("/like/:user_id/:food_id", function(req, res) {
+    foods.like(req, res);
+  })
+
   app.all("*",function(req,res){
     res.sendFile('index.html', { root: './client/dist' });
   })

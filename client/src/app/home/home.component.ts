@@ -23,11 +23,13 @@ export class HomeComponent implements OnInit {
   lat: number = 37.335480;
   lng: number = -121.893028;
   zoom: number = 12;
-
+  
   constructor(private _service: MainService, private _router: Router, private authService: AuthService) { }
 
   ngOnInit() {
+    // console.log(this.all_foods[0].likeBy);
     this.socket = this._service.socket;    
+
     this.authService.authState.subscribe((user) => {
       this.loggedIn = (user != null);
       if (user != null) {
@@ -113,6 +115,20 @@ export class HomeComponent implements OnInit {
       })
     })
 
+  }
+
+  like(id) {
+    this._service.like(id, (res) => {
+      console.log(res);
+
+      this._service.retrieveAllFood((res) => {
+        res.map((ele) => {
+          return ele.quantity = null;
+        })
+        this.all_foods = res;
+        console.log(res);
+      })
+    })
   }
 
 
