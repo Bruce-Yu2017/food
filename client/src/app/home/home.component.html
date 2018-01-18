@@ -20,6 +20,20 @@
           <li class="nav-item" *ngIf="current_user">
             <a class="nav-link" [routerLink]="['/orderhistory', current_user._id]">Order History</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Pricing</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+          <li *ngIf="loggedIn || current_user != null" class="nav-item">
+            <div class="w3-dropdown-hover">
+              <button class="w3-button">Currently Login Users: {{total_login_user.length}}</button>
+              <div class="w3-dropdown-content w3-bar-block w3-border">
+                <span class="w3-bar-item w3-button w3-blue w3-row" *ngFor="let user of total_login_user" >{{user.info.first_name}} {{user.info.last_name}}</span>
+             </div>
+            </div>
+          </li>
         </ul>
         <a [routerLink]="['/new_menu']">
           <button class="btn btn-secondary my-2 my-sm-0" type="submit" *ngIf="current_user != undefined && current_user.user_level == 9">
