@@ -166,8 +166,12 @@ export class MainService {
       console.log("hello");
       localStorage.removeItem("social_user");
     }
-    
+  }
 
+  retrieveAllOrder(callback) {
+    this._http.get("/all_order").subscribe((res) => {
+      callback(res.json());
+    })
   }
 
 }
