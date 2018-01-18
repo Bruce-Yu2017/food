@@ -22,8 +22,14 @@ require('./server/config/routes.js')(app);
 
 
 
-var server = app.listen(8000,function(){
-  console.log("App is running on port 8000!");
+// var server = app.listen(8000,function(){
+//   console.log("App is running on port 8000!");
+// })
+
+var port = 8000;
+app.set('port', (process.env.PORT || port));
+app.listen(app.get('port'), function () {
+    console.log("App is running on port 8000!");
 })
 
 var io = require('socket.io').listen(server);
