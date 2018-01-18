@@ -20,7 +20,8 @@
     </div>
   </nav>
 
-  <section class="section dark-translucent-bg fp-section fp-table active fp-completely">
+  <!-- <div *ngIf = "current_user !== "></div> -->
+  <section class="section dark-translucent-bg fp-section fp-table active fp-completely" *ngIf = "current_user.user_level == 0">
  
       <div class="container">
         <h1 class="display-3" style="color:#fff;">Hello, {{current_user.first_name}} {{current_user.last_name}},
@@ -43,6 +44,35 @@
         </div>
       </div>
 
+  </section>
+
+  <section class="section dark-translucent-bg fp-section fp-table active fp-completely" *ngIf="current_user.user_level == 9">
+  
+    <div class="container">
+      <h1 class="display-3" style="color:#fff;">Hello, {{current_user.first_name}} {{current_user.last_name}},
+        <span *ngIf='orders.length === 0'>your order history is empty.</span>
+        <span *ngIf="orders.length !== 0">here is your order history.</span>
+      </h1>
+      <div class="list-group lis" *ngFor="let o of orders">
+        <p class="list-group-item list-group-item-action active">
+          Order Created by:
+          <strong>{{o.order_user.first_name}} {{o.order_user.last_name}}</strong>
+        </p>
+        <p class="list-group-item list-group-item-action active">
+          Order Created At:
+          <strong>{{o.createdAt | date: "medium"}}</strong>
+        </p>
+        <p class="list-group-item list-group-item-action">Order Details: {{o.quantity}}
+        </p>
+        <p class="list-group-item list-group-item-action">Unit Price:
+          <span *ngFor="let p of o.foods">{{p.food_name}}: {{p.price}} dollars; </span>
+        </p>
+        <p class="list-group-item list-group-item-action">Total Price: {{o.total_price}} dollars
+        </p>
+        <hr>
+      </div>
+    </div>
+  
   </section>
 
 </body>

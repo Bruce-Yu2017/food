@@ -122,6 +122,17 @@ module.exports = {
                 res.json("delete food success")
             }
         })
+    },
+
+    retrieveAllOrder: function(req, res) {
+        Order.find({}).populate("order_user").populate("foods").exec(function(err, orders) {
+            if(err) {
+                console.log("err from retrieve all orders: ", err);
+            }
+            else {
+                res.json(orders);
+            }
+        })
     }
 
 }

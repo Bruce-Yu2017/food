@@ -42,6 +42,10 @@ module.exports = function(app){
     foods.delete_food(req, res);
   })
 
+  app.get("/all_order", function(req, res) {
+    foods.retrieveAllOrder(req, res);
+  })
+
   app.all("*",function(req,res){
     res.sendFile('index.html', { root: './client/dist' });
   })
