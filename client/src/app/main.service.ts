@@ -196,4 +196,22 @@ export class MainService {
     this.socket.emit('login',{user: new_user});
   }
 
+  like(food_id, callback) {
+    if (this.user) {
+      this._http.post("/like/" + this.user._id + "/" + food_id, {}).subscribe(
+        (res) => {
+          callback(res.json());
+        }
+      )
+    }
+    else if (this.social_user) {
+      this._http.post("/like/" + this.social_user._id + "/" + food_id, {}).subscribe(
+        (res) => {
+          callback(res.json());
+        }
+      )
+    }
+
+  }
+
 }
