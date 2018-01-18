@@ -22,6 +22,50 @@ require('./server/config/routes.js')(app);
 
 
 
-app.listen(8000,function(){
+var server = app.listen(8000,function(){
   console.log("App is running on port 8000!");
 })
+
+var io = require('socket.io').listen(server);
+
+var users = [];
+io.sockets.on('connection', function (socket) {
+    console.log("Client/socket is connected!");
+    console.log("Client/socket id is: ", socket.id);
+    // all the server socket code goes in here
+    socket.on('login', function(data){
+        var user_not_existed = true;
+        var user = {
+            info: data.user,
+            id: socket.id,
+        }
+        for(var i=0; i < users.length; i++){
+            if(users[i].id == user.id){
+                user_not_existed = false;
+            }
+        }
+        if(user_not_existed){
+            users.push(user);
+        }
+        console.log(users)
+        io.emit('online', {users:users});
+    })
+
+    socket.on('logout', function(data){
+        var rest_user = users.filter(function(el){
+            return el.info.id != data.user._id;
+        })
+        users = rest_user;
+        io.emit('online',{users:users});
+    })
+
+    socket.on('disconnect', function(){
+        console.log("dis id is: ", socket.id);
+        var rest_user = users.filter(function(el){
+            return el.id != socket.id;
+        })
+        users = rest_user;
+        console.log(users.length)
+        io.emit('online',{users:users});
+    })
+  })
