@@ -115,5 +115,19 @@ export class HomeComponent implements OnInit {
 
   }
 
+  like(id) {
+    this._service.like(id, (res) => {
+      console.log(res);
+
+      this._service.retrieveAllFood((res) => {
+        res.map((ele) => {
+          return ele.quantity = null;
+        })
+        this.all_foods = res;
+        console.log(res);
+      })
+    })
+  }
+
 
 }

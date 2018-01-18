@@ -100,7 +100,7 @@
       <div class="checkout">
         <div class="card mb-3" id="sideCard">
           <h3 class="card-header">Food Truck Info:</h3>
-          <img style="width:100%;" src="/assets/images/foodTruck.png"
+          <img style="width:100%;" src="/assets/images/foodtruck.jpg"
             alt="Card image">
           <ul class="list-group list-group-flush">
             <li *ngFor="let a of all_foods" class="list-group-item font">
@@ -115,6 +115,12 @@
                   <button class="btn btn-default" style="background-color: black; border:#fff; color:#fff;" [disabled]="!addfood.valid">Add</button>
                   <p>Total price: {{a.quantity * a.price}}</p>
                   <button class="btn btn-danger btn-sm" *ngIf="current_user.user_level == 9" (click)="delete_food(a._id)">Delete this food</button>
+                  <button (click)="like(a._id)">
+                    <span>
+                      <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                    </span>
+                  </button>
+                  {{a.likeBy.length}}
                 </form>
               </div>
             </li>
@@ -146,7 +152,7 @@
       </a>
     </div>
     <div class="footer-copyright">
-      <p>© 2018 三人行团队 </p>
+      <p>© 2018 Three Line Technology </p>
     </div>
   </footer>
 

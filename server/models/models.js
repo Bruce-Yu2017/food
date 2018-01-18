@@ -17,6 +17,7 @@ var FoodSchema = new mongoose.Schema({
   description: {type: String, required: true},
   rate_stars: {type: Number},
   rate_times: {type: Number},
+  likeBy: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   image: {type: String, required: true},
   orders:[{type: Schema.Types.ObjectId, ref: 'Order'}],
 }, {timestamps: true})

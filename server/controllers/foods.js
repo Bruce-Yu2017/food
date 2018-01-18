@@ -133,6 +133,53 @@ module.exports = {
                 res.json(orders);
             }
         })
-    }
+    },
+
+    like: function (req, res) {
+        var userId = req.params.user_id;
+        var foodId = req.params.food_id;
+        Food.findOne({
+            _id: foodId
+        }).populate("likeBy").exec(function (err, food) {
+            if (err) {
+                res.json({
+                    err: err
+                });
+            } else {
+                let check = false;
+                for (let index = 0; index < food.likeBy.length; index++) {
+                    if (food.likeBy[index]._id == userId) {
+                        check = true;
+                    }
+                }
+                if (check) {
+                    let index = food.likeBy.indexOf(userId);
+                    console.log("checking", userId);
+                    food.likeBy.splice(index, 1);
+                    food.save(function (err) {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            res.json("like good");
+                        }
+                    })
+
+
+                } else {
+                    food.likeBy.push(userId);
+                    console.log("checking", typeof (userId));
+                    console.log(food.likeBy[0]);
+                    food.save(function (err) {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            res.json("like good user");
+                        }
+                    })
+
+                }
+            }
+        })
+    },
 
 }
