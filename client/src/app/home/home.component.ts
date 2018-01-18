@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AuthService } from "angular4-social-login";
 import { FacebookLoginProvider, GoogleLoginProvider } from "angular4-social-login";
 import { SocialUser } from "angular4-social-login";
+import io from "socket.io-client";
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -17,7 +18,8 @@ export class HomeComponent implements OnInit {
   user: SocialUser;
   loggedIn: boolean;
   imageurl = "https://botw-pd.s3.amazonaws.com/styles/logo-original-577x577/s3/0010/8217/brand.gif";
-
+  socket;
+  total_login_user = [];
   lat: number = 37.335480;
   lng: number = -121.893028;
   zoom: number = 12;
@@ -25,7 +27,7 @@ export class HomeComponent implements OnInit {
   constructor(private _service: MainService, private _router: Router, private authService: AuthService) { }
 
   ngOnInit() {
-    console.log(this._service.social_user);
+    this.socket = this._service.socket;    
     this.authService.authState.subscribe((user) => {
       this.loggedIn = (user != null);
       if (user != null) {
@@ -38,6 +40,7 @@ export class HomeComponent implements OnInit {
             this._service.social_user = res.user;
             localStorage.social_user = JSON.stringify(res.user);
             this.current_user = res.user;
+            this._service.connect(res.user);
           }
           else if (res.message == "none") {
             console.log(res);
@@ -48,6 +51,7 @@ export class HomeComponent implements OnInit {
     });
     if (this._service.user) {
       this.current_user = this._service.user;
+      this._service.connect(this.current_user);
       this.loggedIn = false
     }
 
@@ -59,7 +63,12 @@ export class HomeComponent implements OnInit {
       console.log(res);
     })
 
+    this._service.login_users.subscribe(
+      (data) => {
+        this.total_login_user = data;
+      });
 
+    
   }
 
   signInWithGoogle(): void {
@@ -71,17 +80,18 @@ export class HomeComponent implements OnInit {
   }
 
   signOut(): void {
+    this.socket.emit('logout',{user:this.current_user});
     if (this.loggedIn === true) {
       this.authService.signOut();
       localStorage.removeItem("social_user");
       this.current_user = null;
       this._service.logout();
-      // console.log(this.current_user);
     }
     else {
       this._service.logout();
       this.current_user = null;
     }
+
   }
 
   create_order(food) {
